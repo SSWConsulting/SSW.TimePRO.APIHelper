@@ -4,23 +4,17 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
+using TimeProAPI.BusinessLogic;
 
 namespace SSW.TimeProAPI
 {
-    public class AccountsAPIHelper
+    public class AccountsAPIHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlID;
 
-        public AccountsAPIHelper(string timeProUrlID, string apiKey)
+        public AccountsAPIHelper(string timeProUrlID, string apiKey) : base(timeProUrlID, "Accounts")
         {
-            _timeProUrlID = timeProUrlID;
             _apiKey = apiKey;
-        }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/Accounts/"; }
         }
 
         public async Task<IEnumerable<AccountModel>> GetAccountsAsync()
@@ -61,8 +55,6 @@ namespace SSW.TimeProAPI
 
         }
 
-
-
         public async Task<AccountModel> CreateAccountAsync(AccountModel account)
         {
 
@@ -81,8 +73,6 @@ namespace SSW.TimeProAPI
             }
         }
 
-
-
         public async Task<AccountModel> EditAccountAsync(AccountModel account)
         {
 
@@ -90,16 +80,13 @@ namespace SSW.TimeProAPI
             {
                 var values = HelperMethods.CreateKeyValuePairsFromReflection(account);
 
-
                 client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
-
 
                 var content = new FormUrlEncodedContent(values);
 
                 HttpResponseMessage response = await client.PutAsync(BaseRequestUri, content);
 
                 return await GetAccountByIdAsync(account.AccountID);
-
             }
         }
 
@@ -109,9 +96,7 @@ namespace SSW.TimeProAPI
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
             var response = await client.DeleteAsync(BaseRequestUri + id);
-            response.EnsureSuccessStatusCode();
-
-           
+            response.EnsureSuccessStatusCode();           
         }
     }
 }

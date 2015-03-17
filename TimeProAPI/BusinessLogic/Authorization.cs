@@ -1,26 +1,20 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TimeProAPI.BusinessLogic;
 using TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class AuthorizationAPIHelper
+    public class AuthorizationAPIHelper : BaseApiHelper
     {
         string _email;
         string _password;
-        string _timeProUrlID;
-        public AuthorizationAPIHelper(string email, string password, string timeProUrlID)
+        public AuthorizationAPIHelper(string email, string password, string timeProUrlID) : base(timeProUrlID, "Authorization")
         {
             _email = email;
             _password = password;
-            _timeProUrlID = timeProUrlID;
         }
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/Authorization/"; }
-        }
-
 
         public async Task<SuccessfulAuthorizedModel> Authorize()
         {

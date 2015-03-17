@@ -1,41 +1,45 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
+using TimeProAPI.BusinessLogic;
+
 
 namespace SSW.TimeProAPI
 {
-    public class ProductCategoriesAPIHelper
+    public class ProductCategoriesAPIHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlID;
 
-        public ProductCategoriesAPIHelper(string timeProUrlID, string apiKey)
+        public ProductCategoriesAPIHelper(string timeProUrlID, string apiKey) : base(timeProUrlID, "ProductCategories")
         {
-            _timeProUrlID = timeProUrlID;
             _apiKey = apiKey;
-        }
-
-        private string BaseRequestUri
-        {
-
-          get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/ProductCategories/"; }
-
         }
 
         public async Task<IEnumerable<ProductCategoryModel>> GetCategoriesAsync()
         {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri);
-            response.EnsureSuccessStatusCode();
+                var response = await client.GetAsync(BaseRequestUri);
+                response.EnsureSuccessStatusCode();
 
-            var result = JsonConvert.DeserializeObject<IEnumerable<ProductCategoryModel>>(await response.Content.ReadAsStringAsync());
-            return result;
+                var result =
+                    JsonConvert.DeserializeObject<IEnumerable<ProductCategoryModel>>(
+                        await response.Content.ReadAsStringAsync());
+                return result;
 
+            }
+            catch (Exception ex)
+            {
+                var test = ex.Message;
+                throw;
+            }
         }
 
         public async Task<ProductCategoryModel> GetCategoryByIdAsync(string id)

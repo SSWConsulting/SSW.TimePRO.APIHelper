@@ -25,7 +25,14 @@ namespace SSW.TimeProAPI.Extension
                     object recievedValue = propertyInfo.GetValue(obj, null);
                     if (recievedValue != null)
                     {
-                        values.Add(new KeyValuePair<string, string>(propertyInfo.Name, recievedValue.ToString()));
+                        if (recievedValue is DateTime)
+                        {
+                            values.Add(new KeyValuePair<string, string>(propertyInfo.Name, ((DateTime)recievedValue).ToString("o")));
+                        }
+                        else
+                        {
+                            values.Add(new KeyValuePair<string, string>(propertyInfo.Name, recievedValue.ToString()));
+                        }
                     }
                 }
             }
