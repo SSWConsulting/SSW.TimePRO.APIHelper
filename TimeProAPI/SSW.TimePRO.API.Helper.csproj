@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C478EAC1-A3E9-42F0-AC6E-D2F188C3218F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TimeProAPI</RootNamespace>
+    <AssemblyName>TimeProAPI</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile5</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogic\ClientInvoiceProducts.cs" />
+    <Compile Include="BusinessLogic\Authorization.cs" />
+    <Compile Include="BusinessLogic\ClientsWithOutstandingTime.cs" />
+    <Compile Include="BusinessLogic\Countries.cs" />
+    <Compile Include="BusinessLogic\EmployeeTimesheetBillables.cs" />
+    <Compile Include="BusinessLogic\Controls.cs" />
+    <Compile Include="BusinessLogic\ClientInvoicePrePaidStatementReports.cs" />
+    <Compile Include="BusinessLogic\TimeInvoiceReports.cs" />
+    <Compile Include="BusinessLogic\InvoicesJoinedClients.cs" />
+    <Compile Include="BusinessLogic\ProductCategoryGroupCategories.cs" />
+    <Compile Include="BusinessLogic\ProductCategoryGroups.cs" />
+    <Compile Include="BusinessLogic\Currencies.cs" />
+    <Compile Include="BusinessLogic\Accounts.cs" />
+    <Compile Include="BusinessLogic\Invoices.cs" />
+    <Compile Include="BusinessLogic\Projects.cs" />
+    <Compile Include="BusinessLogic\ProductCategories.cs" />
+    <Compile Include="BusinessLogic\EmployeeTimesheetCategories.cs" />
+    <Compile Include="BusinessLogic\InvoiceReports.cs" />
+    <Compile Include="BusinessLogic\ClientCategories.cs" />
+    <Compile Include="BusinessLogic\Reports.cs" />
+    <Compile Include="BusinessLogic\UnallocatedTimesheets.cs" />
+    <Compile Include="BusinessLogic\Rates.cs" />
+    <Compile Include="BusinessLogic\Timesheets.cs" />
+    <Compile Include="BusinessLogic\Products.cs" />
+    <Compile Include="BusinessLogic\ClientInvoices.cs" />
+    <Compile Include="BusinessLogic\Employees.cs" />
+    <Compile Include="BusinessLogic\Clients.cs" />
+    <Compile Include="Extension\HelperMethods.cs" />
+    <Compile Include="Models\ClientCategoryModel.cs" />
+    <Compile Include="Models\ClientInvoiceEditModel.cs" />
+    <Compile Include="Models\ClientInvoiceProductEditModel.cs" />
+    <Compile Include="Models\ClientInvoiceProductModel.cs" />
+    <Compile Include="Models\ClientsWithOutstandingTime.cs" />
+    <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\EmployeeTimesheetBillableModel.cs" />
+    <Compile Include="Models\ControlModel.cs" />
+    <Compile Include="Models\CurrencyModel.cs" />
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\DownloadModel.cs" />
+    <Compile Include="Models\EmployeeTimesheetCategoryModel.cs" />
+    <Compile Include="Models\InvoiceEditModel.cs" />
+    <Compile Include="Models\InvoiceJoinedClientModel.cs" />
+    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\InvoiceProductsModels.cs" />
+    <Compile Include="Models\PartialTimesheetsEditModel.cs" />
+    <Compile Include="Models\PartialTimesheetsModel.cs" />
+    <Compile Include="Models\ProductCategoryGroupCategoryModel.cs" />
+    <Compile Include="Models\ProductCategoryGroupModel.cs" />
+    <Compile Include="Models\ProductCategoryModel.cs" />
+    <Compile Include="Models\RateModel.cs" />
+    <Compile Include="Models\SuccessfulAuthorizedModel.cs" />
+    <Compile Include="Models\UnallocatedTimesheetModel.cs" />
+    <Compile Include="Models\TimesheetModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ClientInvoiceModel.cs" />
+    <Compile Include="Models\ClientModel.cs" />
+    <Compile Include="Models\EmployeeModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net40+sl4+win8+wp71+wpa81\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\portable-net40+sl4+win8+wp71+wpa81\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\portable-net40+win8\System.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\portable-net40+win8\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.8\lib\portable-net40+win8\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
