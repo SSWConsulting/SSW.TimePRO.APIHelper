@@ -2,25 +2,19 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 
 namespace SSW.TimeProAPI
 {
-    public class ClientInvoicePrePaidStatementReportsApiHelper
+    public class ClientInvoicePrePaidStatementReportsApiHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlId;
 
-        public ClientInvoicePrePaidStatementReportsApiHelper(string timeProUrlId, string apiKey)
+        public ClientInvoicePrePaidStatementReportsApiHelper(string timeProUrlId, string apiKey): base(timeProUrlId, "ClientInvoicePrePaidStatementReports")
         {
-            _timeProUrlId = timeProUrlId;
             _apiKey = apiKey;
         }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlId + ".sswtimepro.com/api/ClientInvoicePrePaidStatementReports/"; }
-        } 
 
         public async Task<String> CreateNewReportAsync(int id)
         {

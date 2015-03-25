@@ -1,37 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class CountriesAPIHelper
+    public class CountriesAPIHelper : BaseApiHelper
     {
-        string _timeProUrlID;
-        string _apiKey;
-        public CountriesAPIHelper(string timeProUrlId, string apiKey)
+        private readonly string _apiKey;
+
+        public CountriesAPIHelper(string timeProUrlID, string apiKey) : base(timeProUrlID, "Countries")
         {
-            this._timeProUrlID = timeProUrlId;
-            this._apiKey = apiKey;
+            _apiKey = apiKey;
         }
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/Countries/"; }
-        }
+
         public async Task<IEnumerable<CountryModel>> GetCountriesAsync()
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<IEnumerable<CountryModel>>(await response.Content.ReadAsStringAsync());
             return result;
-
         }
 
 
@@ -40,7 +35,7 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + id);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri + id);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<CountryModel>(await response.Content.ReadAsStringAsync());
@@ -52,14 +47,11 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + "?startRecord=" + startRecord + "&numberOfRecords=" + numberOfRecords);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri + "?startRecord=" + startRecord + "&numberOfRecords=" + numberOfRecords);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<IEnumerable<CountryModel>>(await response.Content.ReadAsStringAsync());
             return result;
-
         }
     }
-
 }
-

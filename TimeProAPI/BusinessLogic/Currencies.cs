@@ -2,25 +2,20 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class CurrenciesAPIHelper
+    public class CurrenciesAPIHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlID;
 
         public CurrenciesAPIHelper(string timeProUrlID, string apiKey)
+            : base(timeProUrlID, "Currencies")
         {
-            _timeProUrlID = timeProUrlID;
             _apiKey = apiKey;
-        }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/Currencies/"; }
         }
 
         public async Task<IEnumerable<CurrencyModel>> GetCurrenciesAsync()

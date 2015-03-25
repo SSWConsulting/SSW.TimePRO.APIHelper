@@ -1,28 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class ClientsWithOutstandingTimeAPIHelper
+    public class ClientsWithOutstandingTimeAPIHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlID;
 
         public ClientsWithOutstandingTimeAPIHelper(string timeProUrlId, string apiKey)
+            : base(timeProUrlId, "ClientsWithOutstandingTime")
         {
-            _timeProUrlID = timeProUrlId;
             _apiKey = apiKey;
         }
 
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/ClientsWithOutstandingTime/"; }
-        }
 
         public async Task<IEnumerable<ClientsWithOutstandingTime>> GetClientsWithOutstandingTimeAsync()
         {
@@ -52,10 +47,7 @@ namespace SSW.TimeProAPI
                 string responseString = await response.Content.ReadAsStringAsync();
 
                 return responseString;
-
             }
         }
-
-
     }
 }

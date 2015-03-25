@@ -1,32 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class ClientCategoriesApiHelper
+    public class ClientCategoriesApiHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlId;
 
-        public ClientCategoriesApiHelper(string timeProUrlId, string apiKey)
+        public ClientCategoriesApiHelper(string timeProUrlId, string apiKey): base(timeProUrlId, "ClientCategories")
         {
-            _timeProUrlId = timeProUrlId;
             _apiKey = apiKey;
-        }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlId + ".sswtimepro.com/api/ClientCategories/"; }
         }
 
 
@@ -35,12 +23,11 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<IEnumerable<ClientCategoryModel>>(await response.Content.ReadAsStringAsync());
             return result;
-
         }
 
 
@@ -49,7 +36,7 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + id);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri + id);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<ClientCategoryModel>(await response.Content.ReadAsStringAsync());
@@ -61,21 +48,18 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + "?startRecord=" + startRecord + "&numberOfRecords=" + numberOfRecords);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri + "?startRecord=" + startRecord + "&numberOfRecords=" + numberOfRecords);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<IEnumerable<ClientCategoryModel>>(await response.Content.ReadAsStringAsync());
             return result;
-
         }
 
         public async Task<ClientCategoryModel> CreateClientCategoryAsync(ClientCategoryModel clientCategory)
         {
-
             using (var client = new HttpClient())
             {
-
-                var values = HelperMethods.CreateKeyValuePairsFromReflection(clientCategory);
+                List<KeyValuePair<string, string>> values = HelperMethods.CreateKeyValuePairsFromReflection(clientCategory);
 
 
                 client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
@@ -93,10 +77,9 @@ namespace SSW.TimeProAPI
 
         public async Task<ClientCategoryModel> EditClientCategoryAsync(ClientCategoryModel clientCategory)
         {
-
             using (var client = new HttpClient())
             {
-                var values = HelperMethods.CreateKeyValuePairsFromReflection(clientCategory);
+                List<KeyValuePair<string, string>> values = HelperMethods.CreateKeyValuePairsFromReflection(clientCategory);
 
                 client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
@@ -107,7 +90,6 @@ namespace SSW.TimeProAPI
                     await client.PutAsync(BaseRequestUri, content);
 
                 return await GetClientCategoryByIdAsync(clientCategory.CategoryID);
-
             }
         }
 
@@ -116,10 +98,8 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.DeleteAsync(BaseRequestUri + id);
+            HttpResponseMessage response = await client.DeleteAsync(BaseRequestUri + id);
             response.EnsureSuccessStatusCode();
-
-
         }
     }
 }

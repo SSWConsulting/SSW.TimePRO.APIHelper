@@ -2,25 +2,19 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class ProductCategoryGroupsAPIHelper
+    public class ProductCategoryGroupsAPIHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlID;
 
-        public ProductCategoryGroupsAPIHelper(string timeProUrlID, string apiKey)
+        public ProductCategoryGroupsAPIHelper(string timeProUrlID, string apiKey): base(timeProUrlID, "ProductCategoryGroups")
         {
-            _timeProUrlID = timeProUrlID;
             _apiKey = apiKey;
-        }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/ProductCategoryGroups/"; }
         }
 
         public async Task<IEnumerable<ProductCategoryGroupModel>> GetProductCategoryGroupsAsync()

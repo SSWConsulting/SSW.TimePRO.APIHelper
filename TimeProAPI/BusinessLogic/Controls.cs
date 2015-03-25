@@ -2,25 +2,19 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class ControlsApiHelper
+    public class ControlsApiHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlId;
 
-        public ControlsApiHelper(string timeProUrlId, string apiKey)
+        public ControlsApiHelper(string timeProUrlId, string apiKey) : base(timeProUrlId, "Controls")
         {
-            _timeProUrlId = timeProUrlId;
             _apiKey = apiKey;
-        }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlId + ".sswtimepro.com/api/Controls/"; }
         }
 
         public async Task<IEnumerable<ControlModel>> GetControlsAsync()
@@ -28,35 +22,32 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<IEnumerable<ControlModel>>(await response.Content.ReadAsStringAsync());
             return result;
-
         }
-        
 
-        public async Task<ControlModel> GetControlByIdAsync(int id)
+
+        public async Task<IEnumerable<ControlModel>> GetControlByIdAsync(int id)
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + id);
+            var response = await client.GetAsync(BaseRequestUri + id.ToString());
             response.EnsureSuccessStatusCode();
 
-            var result = JsonConvert.DeserializeObject<ControlModel>(await response.Content.ReadAsStringAsync());
+            var result = JsonConvert.DeserializeObject<IEnumerable<ControlModel>>(await response.Content.ReadAsStringAsync());
             return result;
         }
 
 
-
-        public async Task<ControlModel> EditControlAsync(ControlModel control)
+        public async Task<IEnumerable<ControlModel>> EditControlAsync(ControlModel control)
         {
-
             using (var client = new HttpClient())
             {
-                var values = HelperMethods.CreateKeyValuePairsFromReflection(control);
+                List<KeyValuePair<string, string>> values = HelperMethods.CreateKeyValuePairsFromReflection(control);
 
                 client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
@@ -67,9 +58,7 @@ namespace SSW.TimeProAPI
                     await client.PutAsync(BaseRequestUri, content);
 
                 return await GetControlByIdAsync(control.ID);
-
             }
         }
-
     }
 }

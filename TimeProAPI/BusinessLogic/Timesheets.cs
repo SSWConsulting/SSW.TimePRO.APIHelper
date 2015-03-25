@@ -2,27 +2,20 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class TimeSheetsApiHelper
+    public class TimeSheetsApiHelper:BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlId;
 
-        public TimeSheetsApiHelper(string timeProUrlId, string apiKey)
+        public TimeSheetsApiHelper(string timeProUrlID, string apiKey): base(timeProUrlID, "TimeSheets")
         {
-            _timeProUrlId = timeProUrlId;
             _apiKey = apiKey;
         }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlId + ".sswtimepro.com/api/TimeSheets/"; }
-        }
-
 
         public async Task<IEnumerable<TimesheetModel>> GetTimeSheetsAsync()
         {
@@ -43,7 +36,7 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + id);
+            var response = await client.GetAsync(BaseRequestUri + id.ToString());
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<TimesheetModel>(await response.Content.ReadAsStringAsync());

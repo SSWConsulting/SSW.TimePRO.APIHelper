@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
-using TimeProAPI.BusinessLogic;
+using SSW.TimeProAPI.BusinessLogic;
 
 namespace SSW.TimeProAPI
 {

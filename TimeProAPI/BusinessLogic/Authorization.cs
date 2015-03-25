@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using TimeProAPI.BusinessLogic;
+using SSW.TimeProAPI.BusinessLogic;
 using TimeProAPI.Models;
 
 namespace SSW.TimeProAPI

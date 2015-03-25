@@ -51,12 +51,9 @@
     <Compile Include="BusinessLogic\Invoices.cs" />
     <Compile Include="BusinessLogic\Projects.cs" />
     <Compile Include="BusinessLogic\ProductCategories.cs" />
-    <Compile Include="BusinessLogic\EmployeeTimesheetCategories.cs" />
     <Compile Include="BusinessLogic\InvoiceReports.cs" />
     <Compile Include="BusinessLogic\ClientCategories.cs" />
     <Compile Include="BusinessLogic\Reports.cs" />
-    <Compile Include="BusinessLogic\UnallocatedTimesheets.cs" />
-    <Compile Include="BusinessLogic\Rates.cs" />
     <Compile Include="BusinessLogic\Timesheets.cs" />
     <Compile Include="BusinessLogic\Products.cs" />
     <Compile Include="BusinessLogic\ClientInvoices.cs" />
@@ -74,7 +71,6 @@
     <Compile Include="Models\CurrencyModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\DownloadModel.cs" />
-    <Compile Include="Models\EmployeeTimesheetCategoryModel.cs" />
     <Compile Include="Models\InvoiceEditModel.cs" />
     <Compile Include="Models\InvoiceJoinedClientModel.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
@@ -84,9 +80,7 @@
     <Compile Include="Models\ProductCategoryGroupCategoryModel.cs" />
     <Compile Include="Models\ProductCategoryGroupModel.cs" />
     <Compile Include="Models\ProductCategoryModel.cs" />
-    <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\SuccessfulAuthorizedModel.cs" />
-    <Compile Include="Models\UnallocatedTimesheetModel.cs" />
     <Compile Include="Models\TimesheetModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\ProductModel.cs" />

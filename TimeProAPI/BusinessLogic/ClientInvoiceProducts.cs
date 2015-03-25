@@ -2,25 +2,19 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class ClientInvoiceProductsApiHelper
+    public class ClientInvoiceProductsApiHelper : BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlID;
 
-        public ClientInvoiceProductsApiHelper(string timeProUrlID, string apiKey)
+        public ClientInvoiceProductsApiHelper(string timeProUrlID, string apiKey): base(timeProUrlID, "ClientInvoiceProducts")
         {
-            _timeProUrlID = timeProUrlID;
             _apiKey = apiKey;
-        }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/ClientInvoiceProducts/"; }
         }
 
         public async Task<IEnumerable<ClientInvoiceProductModel>> GetClientInvoiceProductsAsync()
@@ -41,7 +35,7 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + id);
+            var response = await client.GetAsync(BaseRequestUri + id.ToString());
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<ClientInvoiceProductModel>(await response.Content.ReadAsStringAsync());

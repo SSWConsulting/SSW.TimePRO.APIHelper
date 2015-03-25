@@ -1,31 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
-using TimeProAPI.Models;
 
 namespace SSW.TimeProAPI
 {
-    public class InvoicesAPIHelper
+    public class InvoicesAPIHelper:BaseApiHelper
     {
         private readonly string _apiKey;
-        private readonly string _timeProUrlID;
-
-        public InvoicesAPIHelper(string timeProUrlID, string apiKey)
+     
+        public InvoicesAPIHelper(string timeProUrlID, string apiKey): base(timeProUrlID, "Invoices")
         {
-            _timeProUrlID = timeProUrlID;
             _apiKey = apiKey;
         }
-
-        private string BaseRequestUri
-        {
-            get { return "https://" + _timeProUrlID + ".sswtimepro.com/api/Invoices/"; }
-        }
-
 
         public async Task<InvoiceModel> CreateInvoiceAsync(ClientInvoiceModel invoice, List<ClientInvoiceProductModel> clientInvoiceProducts, List<PartialTimesheetsModel> timesheets)
         {

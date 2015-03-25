@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SSW.TimeProAPI.BusinessLogic;
 using SSW.TimeProAPI.Extension;
 using SSW.TimeProAPI.Models;
-using TimeProAPI.BusinessLogic;
-
 
 namespace SSW.TimeProAPI
 {
@@ -21,25 +19,16 @@ namespace SSW.TimeProAPI
 
         public async Task<IEnumerable<ProductCategoryModel>> GetCategoriesAsync()
         {
-            try
-            {
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-                var response = await client.GetAsync(BaseRequestUri);
-                response.EnsureSuccessStatusCode();
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri);
+            response.EnsureSuccessStatusCode();
 
-                var result =
-                    JsonConvert.DeserializeObject<IEnumerable<ProductCategoryModel>>(
-                        await response.Content.ReadAsStringAsync());
-                return result;
-
-            }
-            catch (Exception ex)
-            {
-                var test = ex.Message;
-                throw;
-            }
+            var result =
+                JsonConvert.DeserializeObject<IEnumerable<ProductCategoryModel>>(
+                    await response.Content.ReadAsStringAsync());
+            return result;
         }
 
         public async Task<ProductCategoryModel> GetCategoryByIdAsync(string id)
@@ -47,7 +36,7 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + id);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri + id);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<ProductCategoryModel>(await response.Content.ReadAsStringAsync());
@@ -59,22 +48,19 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.GetAsync(BaseRequestUri + "?startRecord=" + startRecord + "&numberOfRecords=" + numberOfRecords);
+            HttpResponseMessage response = await client.GetAsync(BaseRequestUri + "?startRecord=" + startRecord + "&numberOfRecords=" + numberOfRecords);
             response.EnsureSuccessStatusCode();
 
             var result = JsonConvert.DeserializeObject<IEnumerable<ProductCategoryModel>>(await response.Content.ReadAsStringAsync());
             return result;
-
         }
-
 
 
         public async Task<ProductCategoryModel> CreateCategoryAsync(ProductCategoryModel productCategory)
         {
-
             using (var client = new HttpClient())
             {
-                var values = HelperMethods.CreateKeyValuePairsFromReflection(productCategory);
+                List<KeyValuePair<string, string>> values = HelperMethods.CreateKeyValuePairsFromReflection(productCategory);
 
                 client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
@@ -88,13 +74,11 @@ namespace SSW.TimeProAPI
         }
 
 
-
         public async Task<ProductCategoryModel> EditCategoryAsync(ProductCategoryModel productCategory)
         {
-
             using (var client = new HttpClient())
             {
-                var values = HelperMethods.CreateKeyValuePairsFromReflection(productCategory);
+                List<KeyValuePair<string, string>> values = HelperMethods.CreateKeyValuePairsFromReflection(productCategory);
 
 
                 client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
@@ -106,7 +90,6 @@ namespace SSW.TimeProAPI
 
 
                 return JsonConvert.DeserializeObject<ProductCategoryModel>(await response.Content.ReadAsStringAsync());
-
             }
         }
 
@@ -115,10 +98,8 @@ namespace SSW.TimeProAPI
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = HelperMethods.CreateAuthorizationHeader(_apiKey);
 
-            var response = await client.DeleteAsync(BaseRequestUri + id);
+            HttpResponseMessage response = await client.DeleteAsync(BaseRequestUri + id);
             response.EnsureSuccessStatusCode();
-             
-
         }
     }
 }
