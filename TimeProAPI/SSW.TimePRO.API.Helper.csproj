@@ -42,6 +42,7 @@
     <Compile Include="BusinessLogic\EmployeeTimesheetBillables.cs" />
     <Compile Include="BusinessLogic\Controls.cs" />
     <Compile Include="BusinessLogic\ClientInvoicePrePaidStatementReports.cs" />
+    <Compile Include="BusinessLogic\Rates.cs" />
     <Compile Include="BusinessLogic\TimeInvoiceReports.cs" />
     <Compile Include="BusinessLogic\InvoicesJoinedClients.cs" />
     <Compile Include="BusinessLogic\ProductCategoryGroupCategories.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Models\ProductCategoryGroupCategoryModel.cs" />
     <Compile Include="Models\ProductCategoryGroupModel.cs" />
     <Compile Include="Models\ProductCategoryModel.cs" />
+    <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\SuccessfulAuthorizedModel.cs" />
     <Compile Include="Models\TimesheetModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
